@@ -1,0 +1,74 @@
+{
+    "name": "dragon-code/github-notifications",
+    "description": "Reduce your notification burden on GitHub!",
+    "license": "MIT",
+    "type": "project",
+    "keywords": [
+        "github",
+        "github-notifications",
+        "cleaner",
+        "clean",
+        "dragon-code",
+        "cli",
+        "console",
+        "notifications",
+        "notify",
+        "GitHubNotifications",
+        "GitHub Notifications",
+        "GitHub-Notifications",
+        "Andrey Helldar",
+        "Helldar"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@dragon-code.pro",
+            "homepage": "https://dragon-code.pro"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/TheDragonCode/github-notifications/issues",
+        "source": "https://github.com/TheDragonCode/github-notifications"
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.8",
+        "knplabs/github-api": "^3.14",
+        "laravel-zero/framework": "^10.2"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.6",
+        "pestphp/pest": "^2.22"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "DragonCode\\GithubNotifications\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/notifications"
+    ],
+    "config": {
+        "allow-plugins": {
+            "dragon-code/codestyler": true,
+            "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "symfony/thanks": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "bin-dir": "bin"
+    }
+}

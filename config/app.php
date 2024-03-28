@@ -1,0 +1,45 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'name' => 'The Dragon Code: GitHub Notifications',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Version
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "version" your application is currently running
+    | in. You may want to follow the "Semantic Versioning" - Given a version
+    | number MAJOR.MINOR.PATCH when an update happens: https://semver.org.
+    |
+    */
+
+    'version' => '1.0.0',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services the application utilizes. This can be overridden using
+    | the global command line "--env" option when calling commands.
+    |
+    */
+
+    'env' => env('APP_ENV', 'production'),
+
+];
