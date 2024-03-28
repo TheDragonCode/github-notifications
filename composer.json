@@ -70,5 +70,10 @@
     },
     "extra": {
         "bin-dir": "bin"
+    },
+    "scripts": {
+        "test": [
+            "@php vendor/bin/pest --compact"
+        ]
     }
 }
