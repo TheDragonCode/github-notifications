@@ -26,7 +26,7 @@ jobs:
                     coverage: xdebug
 
             -   name: Install dependencies
-                run: composer update
+                run: composer install --prefer-dist --no-progress --no-interaction --no-suggest
 
             -   name: Execute tests
                 run: composer test

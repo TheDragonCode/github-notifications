@@ -31,15 +31,14 @@
         "source": "https://github.com/TheDragonCode/github-notifications"
     },
     "require": {
-        "php": "^8.2",
-        "ext-json": "*",
-        "guzzlehttp/guzzle": "^7.8",
-        "knplabs/github-api": "^3.14",
-        "laravel-zero/framework": "^10.2"
+        "php": "^8.2"
     },
     "require-dev": {
-        "mockery/mockery": "^1.6",
-        "pestphp/pest": "^2.22"
+        "guzzlehttp/guzzle": "^7.8.1",
+        "knplabs/github-api": "^3.14.1",
+        "laravel-zero/framework": "^10.3",
+        "mockery/mockery": "^1.6.11",
+        "pestphp/pest": "^2.34.6"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
@@ -54,7 +53,7 @@
         }
     },
     "bin": [
-        "bin/notifications"
+        "builds/notifications"
     ],
     "config": {
         "allow-plugins": {
@@ -67,9 +66,6 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "extra": {
-        "bin-dir": "bin"
     },
     "scripts": {
         "test": [

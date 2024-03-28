@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'version' => '1.0.0',
+    'version' => resolve('git.version'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,5 +39,5 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => 'development',
 ];
