@@ -20,21 +20,21 @@ class NotificationData extends Data
 
     public function __construct(array $data)
     {
-        $this->id = (int)$this->get($data, 'id');
+        $this->id      = (int) $this->get($data, 'id');
         $this->issueId = $this->issueId($data);
 
         $this->type = $this->get($data, 'subject.type');
 
-        $this->fullName = $this->get($data, 'repository.full_name');
+        $this->fullName     = $this->get($data, 'repository.full_name');
         $this->organization = $this->get($data, 'repository.owner.login');
-        $this->repository = $this->get($data, 'repository.name');
+        $this->repository   = $this->get($data, 'repository.name');
     }
 
     protected function issueId(array $data): int
     {
         $values = $this->parseUrl($data);
 
-        return (int)end($values);
+        return (int) end($values);
     }
 
     protected function parseUrl(array $data): array

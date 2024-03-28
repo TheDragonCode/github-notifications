@@ -13,11 +13,11 @@ use function Laravel\Prompts\confirm;
 class ReadCommand extends Command
 {
     protected $signature = 'read'
-    . ' {repository? : Full or partial repository name}'
-    . ' {--i|without-issues : Exclude issues from processing}'
-    . ' {--s|without-pulls : Exclude Pull Requests from processing}'
-    . ' {--o|with-open : Process including open Issues and Pull Requests}'
-    . ' {--token= : GitHub access token with "notifications" permissions}';
+        . ' {repository? : Full or partial repository name}'
+        . ' {--i|without-issues : Exclude issues from processing}'
+        . ' {--s|without-pulls : Exclude Pull Requests from processing}'
+        . ' {--o|with-open : Process including open Issues and Pull Requests}'
+        . ' {--token= : GitHub access token with "notifications" permissions}';
 
     protected $description = 'Read all issue notifications';
 
@@ -59,8 +59,8 @@ class ReadCommand extends Command
     protected function shouldBeAll(?string $repository): bool
     {
         return empty($repository)
-            && !$this->withoutIssues()
-            && !$this->withoutPulls()
+            && ! $this->withoutIssues()
+            && ! $this->withoutPulls()
             && $this->withOpen();
     }
 
@@ -69,9 +69,9 @@ class ReadCommand extends Command
         $client = ClientFactory::make($this->token());
 
         return app(GitHub::class, [
-            'output' => $this->components,
-            'github' => $client,
-            'paginator' => new ResultPager($client)
+            'output'    => $this->components,
+            'github'    => $client,
+            'paginator' => new ResultPager($client),
         ]);
     }
 
