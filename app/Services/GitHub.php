@@ -16,16 +16,18 @@ use Illuminate\Support\Str;
 class GitHub
 {
     protected ?string $repository = null;
+
     protected bool $withoutIssues = false;
+
     protected bool $withoutPulls = false;
+
     protected bool $withOpen = false;
 
     public function __construct(
         protected Factory $output,
         protected Client $github,
         protected ResultPager $paginator,
-    ) {
-    }
+    ) {}
 
     public function repository(?string $repository): self
     {
@@ -67,7 +69,7 @@ class GitHub
 
     public function mark(): void
     {
-        if (!$items = $this->paginated()) {
+        if (! $items = $this->paginated()) {
             $this->output->info('Nothing to mark');
 
             return;
@@ -139,10 +141,6 @@ class GitHub
             return true;
         }
 
-        if ($item->isOpen || !$item->isMerged) {
-            return true;
-        }
-
-        return false;
+        return (bool) ($item->isOpen || ! $item->isMerged);
     }
 }

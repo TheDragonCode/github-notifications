@@ -14,9 +14,9 @@ class ItemData extends Data
 
     public function __construct(array $data)
     {
-        $this->id = (int)$this->get($data, 'number');
+        $this->id = (int) $this->get($data, 'number');
 
-        $this->isOpen = $this->get($data, 'state') === 'open';
-        $this->isMerged = (bool)$this->get($data, 'merged');
+        $this->isOpen   = $this->get($data, 'state') === 'open';
+        $this->isMerged = (bool) $this->get($data, 'merged');
     }
 }
