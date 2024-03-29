@@ -17,7 +17,7 @@ class ReadCommand extends Command
         . ' {--i|without-issues : Exclude issues from processing}'
         . ' {--s|without-pulls : Exclude Pull Requests from processing}'
         . ' {--o|with-open : Process including open Issues and Pull Requests}'
-        . ' {--token= : GitHub access token with "notifications" permissions}';
+        . ' {--token= : Specifies the token to use}';
 
     protected $description = 'Marks as read all notifications based on specified conditions';
 
