@@ -68,6 +68,7 @@ But you can define the parameters yourself:
 -s, --without-pulls   Exclude Pull Requests from processing
 -o, --with-open       Process including open Issues and Pull Requests
 -n, --no-interaction  Do not ask any interactive question
+-q, --quiet           Do not output any message
 ```
 
 For example:
