@@ -48,14 +48,20 @@ notifications read laravel --token {...}
 In addition to the organization, you can also specify the full or partial name of the repository. For example:
 
 ```Bash
-notifications read some/name
+notifications read laravel/framework
 # or
-notifications read some/na
+notifications read laravel/fra
 # or
-notifications read so
+notifications read la
 ```
 
-При определении имени используется функция [`str_starts_with`](https://www.php.net/manual/en/function.str-starts-with).
+You can also specify several names:
+
+```Bash
+notifications read laravel/framework laravel/jet
+```
+
+When determining the name, the [`str_starts_with`](https://www.php.net/manual/en/function.str-starts-with) function is used.
 
 ### Options
 
