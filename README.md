@@ -96,6 +96,16 @@ With this set of options, notifications that have:
 > notifications read --help
 > ```
 
+## Result
+
+### Before
+
+![before](.github/images/before.png)
+
+### After
+
+![after](.github/images/after.png)
+
 ## Support Us
 
 ❤️ The Dragon Code? Please consider supporting our collective on [Boosty](https://boosty.to/dragon-code).
