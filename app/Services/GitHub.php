@@ -23,6 +23,8 @@ class GitHub
 
     protected bool $withOpen = false;
 
+    protected int $index = 0;
+
     public function __construct(
         protected Factory $output,
         protected Client $github,
@@ -70,13 +72,13 @@ class GitHub
     public function mark(): void
     {
         if (! $items = $this->paginated()) {
-            $this->output->info('Nothing to mark');
+            $this->output->info('No unread notifications');
 
             return;
         }
 
         foreach ($items as $data) {
-            $notification = new NotificationData($data);
+            $notification = new NotificationData($data, ++$this->index);
 
             $item = new ItemData($this->requestByType($notification));
 
