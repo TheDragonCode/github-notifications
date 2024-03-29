@@ -4,8 +4,19 @@ on:
   push:
     branches:
       - main
+      - 1.x
   workflow_dispatch:
 
 jobs:
-    Update:
+    draft:
+        name: Update
         uses: TheDragonCode/.github/.github/workflows/release-drafter.yml@main
+
+    build:
+        needs: draft
+
+        name: Build Application
+
+        uses: TheDragonCode/github-notifications/.github/workflows/build.yml@1.x
+        with:
+          tag: ${{ needs.draft.outputs.tag }}

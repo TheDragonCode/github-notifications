@@ -6,6 +6,11 @@ on:
             tag:
                 description: 'Tag version'
                 required: true
+    workflow_call:
+        inputs: 
+            tag:
+                type: string
+                required: true
 
 permissions: write-all
 
@@ -13,13 +18,16 @@ jobs:
     build:
         runs-on: ubuntu-latest
         
+        outputs: 
+            tag: ${{ steps.tag.outputs.tag }}
+        
         steps:
             -   name: Extract the tag version
                 id: tag
                 run: |
                     if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
                       GITHUB_REF=${{ github.event.inputs.tag }}
-                    fi          
+                    fi
                     echo "tag=${GITHUB_REF##*v}" >> "$GITHUB_OUTPUT"
 
             -   name: Checkout the code
@@ -49,7 +57,7 @@ jobs:
                 with:
                     name: notifications
                     path: builds/notifications
-                    retention-days: 30
+                    retention-days: 14
     
     push:
         runs-on: ubuntu-latest
@@ -68,20 +76,16 @@ jobs:
                     name: notifications
                     path: builds
 
-            -   name: Push changes
-                uses: ad-m/github-push-action@master
-                if: steps.build.outputs.is_dirty == 1
-                with:
-                    github_token: ${{ secrets.COMPOSER_TOKEN }}
-
             -   name: Create a Pull Request
                 uses: peter-evans/create-pull-request@v6
+                env:
+                    VERSION: ${{ needs.build.outputs.tag }}
                 with:
-                    branch: app
+                    branch: build/app
                     branch-suffix: random
                     delete-branch: true
                     add-paths: ./builds/notifications
-                    title: "🏗️ Build application"
-                    commit-message: 🏗️ Build application
+                    title: "🏗️ Build the application version $VERSION"
+                    commit-message: 🏗️ Build the application version $VERSION
                     body: Application compiled successfully
                     labels: build
