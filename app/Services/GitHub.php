@@ -78,11 +78,7 @@ class GitHub
         foreach ($items as $data) {
             $notification = new NotificationData($data);
 
-            $data = $notification->type === 'Issue'
-                ? $this->issue($notification)
-                : $this->pullRequest($notification);
-
-            $item = new ItemData($data);
+            $item = new ItemData($this->requestByType($notification));
 
             $this->shouldSkip($notification, $item)
                 ? $this->output->twoColumnDetail($notification->fullName, 'SKIP')
@@ -90,7 +86,7 @@ class GitHub
         }
     }
 
-    protected function markAsRead(NotificationData $data): bool
+    protected function markAsRead(NotificationData $data): void
     {
         $this->github->notification()->markThreadRead($data->id);
     }
@@ -103,6 +99,15 @@ class GitHub
     protected function notifications(): Notification
     {
         return $this->github->notifications();
+    }
+
+    protected function requestByType(NotificationData $notification): ?array
+    {
+        return match ($notification->type) {
+            'Issue'       => $this->issue($notification),
+            'PullRequest' => $this->pullRequest($notification),
+            default       => null
+        };
     }
 
     protected function issue(NotificationData $notification): array
@@ -141,6 +146,6 @@ class GitHub
             return true;
         }
 
-        return (bool) ($item->isOpen || ! $item->isMerged);
+        return $item->isOpen || ! $item->isMerged;
     }
 }

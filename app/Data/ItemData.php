@@ -6,15 +6,18 @@ namespace DragonCode\GithubNotifications\Data;
 
 class ItemData extends Data
 {
-    public int $id;
-
     public bool $isOpen;
 
     public bool $isMerged;
 
-    public function __construct(array $data)
+    public function __construct(?array $data)
     {
-        $this->id = (int) $this->get($data, 'number');
+        if (is_null($data)) {
+            $this->isOpen   = false;
+            $this->isMerged = true;
+
+            return;
+        }
 
         $this->isOpen   = $this->get($data, 'state') === 'open';
         $this->isMerged = (bool) $this->get($data, 'merged');
