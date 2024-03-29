@@ -13,7 +13,7 @@ use function Laravel\Prompts\confirm;
 class ReadCommand extends Command
 {
     protected $signature = 'read'
-        . ' {repository? : Full or partial repository name}'
+        . ' {repository?* : Full or partial repository names}'
         . ' {--i|without-issues : Exclude issues from processing}'
         . ' {--s|without-pulls : Exclude Pull Requests from processing}'
         . ' {--o|with-open : Process including open Issues and Pull Requests}'
@@ -23,18 +23,25 @@ class ReadCommand extends Command
 
     public function handle(): void
     {
-        $repository = $this->repository();
+        $repositories = $this->repositories();
 
-        $this->welcome($repository);
+        $this->welcome($repositories);
 
         if ($this->hasContinue()) {
-            $this->read($repository);
+            $this->read($repositories);
         }
     }
 
-    protected function welcome(?string $repository): void
+    protected function welcome(array $repositories): void
     {
-        $this->show($repository ?: 'All Notifications');
+        if ($repositories) {
+            $this->components->info('You specified the following repository name masks:');
+            $this->components->bulletList($repositories);
+
+            return;
+        }
+
+        $this->components->info('All Notifications');
     }
 
     protected function hasContinue(): bool
@@ -42,23 +49,23 @@ class ReadCommand extends Command
         return confirm('Continue');
     }
 
-    protected function read(?string $repository): void
+    protected function read(array $repositories): void
     {
         $this->gitHub()
-            ->repository($repository)
+            ->repositories($repositories)
             ->withoutIssues($this->withoutIssues())
             ->withoutPulls($this->withoutPulls())
             ->withOpen($this->withOpen())
             ->when(
-                $this->shouldBeAll($repository),
+                $this->shouldBeAll($repositories),
                 fn (GitHub $gitHub) => $gitHub->markAll(),
                 fn (GitHub $gitHub) => $gitHub->mark()
             );
     }
 
-    protected function shouldBeAll(?string $repository): bool
+    protected function shouldBeAll(array $repositories): bool
     {
-        return empty($repository)
+        return empty($repositories)
             && ! $this->withoutIssues()
             && ! $this->withoutPulls()
             && $this->withOpen();
@@ -75,14 +82,13 @@ class ReadCommand extends Command
         ]);
     }
 
-    public function show(string $value): void
+    protected function repositories(): array
     {
-        $this->components->info($value);
-    }
-
-    protected function repository(): ?string
-    {
-        return $this->argument('repository');
+        return collect($this->argument('repository'))
+            ->filter()
+            ->unique()
+            ->sort()
+            ->all();
     }
 
     protected function withoutIssues(): bool

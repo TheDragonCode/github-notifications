@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class GitHub
 {
-    protected ?string $repository = null;
+    protected array $repositories = [];
 
     protected bool $withoutIssues = false;
 
@@ -31,9 +31,9 @@ class GitHub
         protected ResultPager $paginator,
     ) {}
 
-    public function repository(?string $repository): self
+    public function repositories(array $repositories): self
     {
-        $this->repository = $repository;
+        $this->repositories = $repositories;
 
         return $this;
     }
@@ -132,7 +132,7 @@ class GitHub
 
     protected function shouldSkip(NotificationData $notification, ItemData $item): bool
     {
-        if ($this->repository && Str::startsWith($notification->fullName, $this->repository)) {
+        if ($this->repositories && Str::startsWith($notification->fullName, $this->repositories)) {
             return true;
         }
 
