@@ -74,6 +74,7 @@ But you can define the parameters yourself:
 -s, --without-pulls   Exclude Pull Requests from processing
 -o, --with-open       Process including open Issues and Pull Requests
 -n, --no-interaction  Do not ask any interactive question
+-q, --quiet           Do not output any message
 ```
 
 For example:
@@ -88,6 +89,12 @@ With this set of options, notifications that have:
 - whose repository name begins with the word `qwerty`
 - Pull Requests only, both open and closed
 - will not be asked to continue in the console
+
+> You can call the console command to display help information:
+>
+> ```bash
+> notifications read --help
+> ```
 
 ## Result
 
