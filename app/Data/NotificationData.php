@@ -31,7 +31,13 @@ class NotificationData extends Data
         $this->organization = $this->get($data, 'repository.owner.login');
         $this->repository   = $this->get($data, 'repository.name');
 
-        $this->title = sprintf('%d. %s: <fg=gray>%s #%d</>', $index, $this->fullName, $this->type, $this->issueId);
+        $this->title = sprintf(
+            '<fg=gray>%d.</> %s: <fg=gray>%s #%d</>',
+            $index,
+            $this->fullName,
+            $this->type,
+            $this->issueId
+        );
     }
 
     protected function issueId(array $data): int
