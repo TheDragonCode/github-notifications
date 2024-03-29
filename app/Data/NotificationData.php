@@ -18,6 +18,8 @@ class NotificationData extends Data
 
     public string $repository;
 
+    public string $title;
+
     public function __construct(array $data)
     {
         $this->id      = (int) $this->get($data, 'id');
@@ -28,6 +30,8 @@ class NotificationData extends Data
         $this->fullName     = $this->get($data, 'repository.full_name');
         $this->organization = $this->get($data, 'repository.owner.login');
         $this->repository   = $this->get($data, 'repository.name');
+
+        $this->title = sprintf('%s: %s #%d', $this->fullName, $this->type, $this->issueId);
     }
 
     protected function issueId(array $data): int
