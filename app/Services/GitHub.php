@@ -132,7 +132,7 @@ class GitHub
 
     protected function shouldSkip(NotificationData $notification, ItemData $item): bool
     {
-        if ($this->repositories && Str::startsWith($notification->fullName, $this->repositories)) {
+        if ($this->repositories && ! Str::startsWith($notification->fullName, $this->repositories)) {
             return true;
         }
 
@@ -145,9 +145,13 @@ class GitHub
         }
 
         if ($this->withOpen && $item->isOpen) {
-            return true;
+            return false;
         }
 
-        return $item->isOpen || ! $item->isMerged;
+        if ($notification->type === 'PullRequest' && $item->isMerged) {
+            return false;
+        }
+
+        return $item->isOpen;
     }
 }
