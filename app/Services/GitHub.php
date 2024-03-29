@@ -81,8 +81,8 @@ class GitHub
             $item = new ItemData($this->requestByType($notification));
 
             $this->shouldSkip($notification, $item)
-                ? $this->output->twoColumnDetail($notification->fullName, 'SKIP')
-                : $this->output->task($notification->fullName, fn () => $this->markAsRead($notification));
+                ? $this->output->twoColumnDetail($notification->title, 'SKIP')
+                : $this->output->task($notification->title, fn () => $this->markAsRead($notification));
         }
     }
 
