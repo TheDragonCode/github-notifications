@@ -89,6 +89,16 @@ With this set of options, notifications that have:
 - Pull Requests only, both open and closed
 - will not be asked to continue in the console
 
+## Result
+
+### Before
+
+![before](.github/images/before.png)
+
+### After
+
+![after](.github/images/after.png)
+
 ## Support Us
 
 ❤️ The Dragon Code? Please consider supporting our collective on [Boosty](https://boosty.to/dragon-code).
