@@ -41,7 +41,7 @@ class ReadCommand extends Command
             return;
         }
 
-        $this->components->info('All Notifications');
+        $this->components->info('Mark as read all notifications except open ones');
     }
 
     protected function hasContinue(): bool
