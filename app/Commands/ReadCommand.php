@@ -19,7 +19,7 @@ class ReadCommand extends Command
         . ' {--o|with-open : Process including open Issues and Pull Requests}'
         . ' {--token= : GitHub access token with "notifications" permissions}';
 
-    protected $description = 'Read all issue notifications';
+    protected $description = 'Marks as read all notifications based on specified conditions';
 
     public function handle(): void
     {
