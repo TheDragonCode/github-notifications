@@ -81,6 +81,12 @@ With this set of options, notifications that have:
 - whose repository name begins with the word `qwerty`
 - Pull Requests only, both open and closed
 
+> You can call the console command to display help information:
+>
+> ```bash
+> notifications read --help
+> ```
+
 ## Support Us
 
 ❤️ The Dragon Code? Please consider supporting our collective on [Boosty](https://boosty.to/dragon-code).
