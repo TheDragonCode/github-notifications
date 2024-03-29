@@ -17,6 +17,7 @@ class ReadCommand extends Command
         . ' {--i|without-issues : Exclude issues from processing}'
         . ' {--s|without-pulls : Exclude Pull Requests from processing}'
         . ' {--o|with-open : Process including open Issues and Pull Requests}'
+        . ' {--n|no-interaction : Do not ask any interactive question}'
         . ' {--token= : GitHub access token with "notifications" permissions}';
 
     protected $description = 'Read all issue notifications';
@@ -39,7 +40,7 @@ class ReadCommand extends Command
 
     protected function hasContinue(): bool
     {
-        return confirm('Continue');
+        return $this->noInteraction() || confirm('Continue');
     }
 
     protected function read(?string $repository): void
@@ -98,6 +99,11 @@ class ReadCommand extends Command
     protected function withOpen(): bool
     {
         return $this->option('with-open');
+    }
+
+    protected function noInteraction(): bool
+    {
+        return $this->option('no-interaction');
     }
 
     protected function token(): string

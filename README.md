@@ -67,19 +67,21 @@ But you can define the parameters yourself:
 -i, --without-issues  Exclude issues from processing
 -s, --without-pulls   Exclude Pull Requests from processing
 -o, --with-open       Process including open Issues and Pull Requests
+-n, --no-interaction  Do not ask any interactive question
 ```
 
 For example:
 
 ```Bash
 # without issues + with open
-notifications read qwerty -io
+notifications read qwerty -ion
 ```
 
 With this set of options, notifications that have:
 
 - whose repository name begins with the word `qwerty`
 - Pull Requests only, both open and closed
+- will not be asked to continue in the console
 
 ## Support Us
 
