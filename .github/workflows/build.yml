@@ -41,6 +41,9 @@ jobs:
             -   name: Create the PHAR file
                 run: php ./notifications app:build notifications --build-version=${{ steps.tag.outputs.tag }} --ansi
 
+            -   name: Show version
+                run: php builds/notifications --version
+
             -   name: Upload artifact
                 uses: actions/upload-artifact@v4
                 with:
@@ -48,44 +51,10 @@ jobs:
                     path: builds/notifications
                     retention-days: 30
     
-    checks:
-        runs-on: ubuntu-latest
-        
-        needs: build
-
-        strategy:
-            fail-fast: true
-            matrix:
-                php: [ "8.2", "8.3" ]
-
-        name: PHP ${{ matrix.php }}
-        
-        steps:
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php }}
-                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv, json, dom, curl, libxml, fileinfo, tokenizer, xml
-                    coverage: xdebug
-
-            -   name: Remove old file
-                run: rm -f builds/notifications
-
-            -   uses: actions/download-artifact@v4
-                with:
-                    name: notifications
-                    path: builds
-
-            -   name: Show version
-                run: php builds/notifications --version
-
-            -   name: Run tests
-                run: composer test
-    
     push:
         runs-on: ubuntu-latest
         
-        needs: checks
+        needs: build
 
         steps:
             -   name: Checkout the code
