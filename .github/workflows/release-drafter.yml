@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**builds/notifications'
   workflow_dispatch:
 
 jobs:
@@ -11,41 +13,10 @@ jobs:
     name: Drafter
     uses: TheDragonCode/.github/.github/workflows/release-drafter.yml@main
 
-  check:
-    needs: draft
-    
-    runs-on: ubuntu-latest
-
-    name: Check app's version
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
-          coverage: xdebug
-
-      - run: |
-          ALLOW=1
-          NEW_TAG=${{ needs.draft.outputs.tag_name }}
-          APP_VERSION=$(./builds/notifications --version)
-          
-          if [[ $APP_VERSION == *"$NEW_TAG"* ]]; then
-            ALLOW=0
-          fi
-          
-          echo "allow=${ALLOW}" >> "$GITHUB_OUTPUT"
-
   build:
-    needs:
-      - draft
-      - check
+    needs: draft
 
     name: App
-    if: ${{ needs.check.outputs.allow }} == 1
     uses: TheDragonCode/github-notifications/.github/workflows/build.yml@main
     with:
       tag: ${{ needs.draft.outputs.tag_name }}
