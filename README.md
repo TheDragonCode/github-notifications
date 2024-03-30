@@ -22,6 +22,14 @@ composer global require dragon-code/github-notifications:*
 
 Alternatively, you can simply clone the repo and run `composer install` in the folder.
 
+## Update global dependencies
+
+To update global dependencies, use the console command:
+
+```Bash
+composer global update
+```
+
 ## Authentication
 
 You'll also need to create yourself a
