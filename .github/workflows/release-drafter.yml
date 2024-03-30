@@ -11,10 +11,31 @@ jobs:
     name: Drafter
     uses: TheDragonCode/.github/.github/workflows/release-drafter.yml@main
 
-  build:
+  check:
     needs: draft
+    
+    runs-on: ubuntu-latest
+
+    name: Check app's version
+    steps:
+      - run: |
+          ALLOW=1
+          NEW_TAG=${{ needs.draft.outputs.tag_name }}
+          APP_VERSION=$(./builds/notifications --version)
+          
+          if [[ $APP_VERSION == *"$NEW_TAG"* ]]; then
+            ALLOW=0
+          fi
+          
+          echo "allow=${ALLOW}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs:
+      - draft
+      - check
 
     name: App
+    if: ${{ needs.check.outputs.allow }} == 1
     uses: TheDragonCode/github-notifications/.github/workflows/build.yml@main
     with:
       tag: ${{ needs.draft.outputs.tag_name }}
