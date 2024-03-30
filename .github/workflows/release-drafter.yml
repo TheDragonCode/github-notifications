@@ -11,46 +11,8 @@ jobs:
     name: Drafter
     uses: TheDragonCode/.github/.github/workflows/release-drafter.yml@main
 
-  check:
-    needs: draft
-    
-    runs-on: ubuntu-latest
-    
-    outputs: 
-      allow: ${{ steps.result.outputs.allow }}
-
-    name: Comparison
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
-          coverage: xdebug
-
-      - id: result
-        run: |
-          ALLOW=1
-          NEW_TAG=${{ needs.draft.outputs.tag_name }}
-          APP_VERSION=$(php ./builds/notifications --version)
-          
-          if [[ $APP_VERSION == *"$NEW_TAG" ]]; then
-            ALLOW=0
-          fi
-
-          echo "Application version is $APP_VERSION"
-          echo "New version is $NEW_TAG"
-          echo "Allow to Pull Request creating: $ALLOW"
-          
-          echo "allow=${ALLOW}" >> "$GITHUB_OUTPUT"
-
   build:
-    needs:
-      - draft
-      - check
+    needs: draft
 
     name: App
     if: ${{ needs.check.outputs.allow }} == 1
