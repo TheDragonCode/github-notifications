@@ -106,6 +106,10 @@ With this set of options, notifications that have:
 
 ![after](.github/images/after.png)
 
+### After With `--with-open` option
+
+![after](.github/images/after-with-open.png)
+
 ## Support Us
 
 ❤️ The Dragon Code? Please consider supporting our collective on [Boosty](https://boosty.to/dragon-code).
