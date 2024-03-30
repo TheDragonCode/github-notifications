@@ -31,8 +31,7 @@ class GitHub
         protected Factory $output,
         protected Client $github,
         protected ResultPager $paginator,
-    ) {
-    }
+    ) {}
 
     public function repositories(array $repositories): self
     {
@@ -76,7 +75,7 @@ class GitHub
 
     public function mark(): void
     {
-        if (!$items = $this->paginated()) {
+        if (! $items = $this->paginated()) {
             Output::success('No unread notifications');
 
             return;
@@ -122,9 +121,9 @@ class GitHub
     protected function requestByType(NotificationData $notification): ?array
     {
         return match ($notification->type) {
-            'Issue' => $this->issue($notification),
+            'Issue'       => $this->issue($notification),
             'PullRequest' => $this->pullRequest($notification),
-            default => null
+            default       => null
         };
     }
 
@@ -148,7 +147,7 @@ class GitHub
 
     protected function shouldSkip(NotificationData $notification, ItemData $item): bool
     {
-        if ($this->repositories && !Str::startsWith($notification->fullName, $this->repositories)) {
+        if ($this->repositories && ! Str::startsWith($notification->fullName, $this->repositories)) {
             return true;
         }
 
