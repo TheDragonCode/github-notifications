@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 1.x
   workflow_dispatch:
 
 jobs:
@@ -16,6 +15,6 @@ jobs:
     needs: draft
 
     name: App
-    uses: TheDragonCode/github-notifications/.github/workflows/build.yml@1.x
+    uses: TheDragonCode/github-notifications/.github/workflows/build.yml@main
     with:
       tag: ${{ needs.draft.outputs.tag_name }}
