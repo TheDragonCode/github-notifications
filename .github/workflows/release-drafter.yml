@@ -18,6 +18,16 @@ jobs:
 
     name: Check app's version
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
+          coverage: xdebug
+
       - run: |
           ALLOW=1
           NEW_TAG=${{ needs.draft.outputs.tag_name }}
