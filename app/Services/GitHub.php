@@ -83,8 +83,7 @@ class GitHub
 
         $count = count($items);
 
-        Output::info('unread notifications detected', $count);
-
+        $this->detected($count);
         $this->process($items);
         $this->result($count);
     }
@@ -173,12 +172,22 @@ class GitHub
 
     protected function result(int $count): void
     {
+        $pluralized = $this->marked === 1 ? 'notification' : 'notifications';
+
         $info = sprintf(
-            '%d notifications were marked as read and %d were skipped.',
+            '%d %s were marked as read and %d were skipped.',
             $this->marked,
+            $pluralized,
             $count - $this->marked
         );
 
         $this->marked ? Output::success($info) : Output::info($info);
+    }
+
+    protected function detected(int $count): void
+    {
+        $pluralized = $this->marked === 1 ? 'notification' : 'notifications';
+
+        Output::info("unread $pluralized detected", $count);
     }
 }
