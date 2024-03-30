@@ -12,7 +12,9 @@ on:
                 type: string
                 required: true
 
-permissions: write-all
+permissions:
+    contents: write
+    pull-requests: write
 
 env:
     TAG_NAME: ${{ inputs.tag || github.event.inputs.tag }}

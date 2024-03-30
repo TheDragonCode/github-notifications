@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**builds/notifications'
   workflow_dispatch:
 
 jobs:
