@@ -25,6 +25,8 @@ class GitHub
 
     protected int $index = 0;
 
+    protected int $marked = 0;
+
     public function __construct(
         protected Factory $output,
         protected Client $github,
@@ -66,17 +68,36 @@ class GitHub
 
     public function markAll(): void
     {
-        $this->notifications()->markRead();
+        $this->output->task('Mark all notifications', fn () => $this->notifications()->markRead());
+
+        Output::success('All notifications have been successfully marked.');
     }
 
     public function mark(): void
     {
         if (! $items = $this->paginated()) {
-            $this->output->info('No unread notifications');
+            Output::success('No unread notifications');
 
             return;
         }
 
+        $count = count($items);
+
+        Output::info('unread notifications detected', $count);
+
+        $this->process($items);
+        $this->result($count);
+    }
+
+    protected function markAsRead(NotificationData $data): void
+    {
+        $this->github->notification()->markThreadRead($data->id);
+
+        ++$this->marked;
+    }
+
+    protected function process(array $items): void
+    {
         foreach ($items as $data) {
             $notification = new NotificationData($data, ++$this->index);
 
@@ -86,11 +107,6 @@ class GitHub
                 ? $this->output->twoColumnDetail($notification->title, 'SKIP')
                 : $this->output->task($notification->title, fn () => $this->markAsRead($notification));
         }
-    }
-
-    protected function markAsRead(NotificationData $data): void
-    {
-        $this->github->notification()->markThreadRead($data->id);
     }
 
     protected function paginated(): array
@@ -153,5 +169,16 @@ class GitHub
         }
 
         return $item->isOpen;
+    }
+
+    protected function result(int $count): void
+    {
+        $info = sprintf(
+            '%d notifications were marked as read and %d were skipped.',
+            $this->marked,
+            $count - $this->marked
+        );
+
+        $this->marked ? Output::success($info) : Output::info($info);
     }
 }

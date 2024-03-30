@@ -4,6 +4,7 @@ namespace DragonCode\GithubNotifications\Commands;
 
 use DragonCode\GithubNotifications\Factories\ClientFactory;
 use DragonCode\GithubNotifications\Services\GitHub;
+use DragonCode\GithubNotifications\Services\Output;
 use Github\ResultPager;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Exception\InvalidOptionException;
@@ -35,13 +36,14 @@ class ReadCommand extends Command
     protected function welcome(array $repositories): void
     {
         if ($repositories) {
-            $this->components->info('You specified the following repository name masks:');
+            Output::info('You specified the following repository name masks:');
+
             $this->components->bulletList($repositories);
 
             return;
         }
 
-        $this->components->info('Mark as read all notifications except open ones');
+        Output::info('Mark as read all notifications except open ones');
     }
 
     protected function hasContinue(): bool
