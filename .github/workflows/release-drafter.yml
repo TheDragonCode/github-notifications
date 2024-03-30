@@ -16,7 +16,7 @@ jobs:
     
     runs-on: ubuntu-latest
 
-    name: Comparison with previous version
+    name: Comparison
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -32,13 +32,14 @@ jobs:
           ALLOW=1
           NEW_TAG=${{ needs.draft.outputs.tag_name }}
           APP_VERSION=$(php ./builds/notifications --version)
+          
+          if [[ $APP_VERSION == *"$NEW_TAG" ]]; then
+            ALLOW=0
+          fi
 
           echo "Application version is $APP_VERSION"
           echo "New version is $NEW_TAG"
-          
-          if [[ $APP_VERSION == *"$NEW_TAG"* ]]; then
-            ALLOW=0
-          fi
+          echo "Allow to Pull Request creating: $ALLOW"
           
           echo "allow=${ALLOW}" >> "$GITHUB_OUTPUT"
 
