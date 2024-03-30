@@ -16,7 +16,7 @@ jobs:
     
     runs-on: ubuntu-latest
 
-    name: Check app's version
+    name: Comparison with previous version
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -32,6 +32,9 @@ jobs:
           ALLOW=1
           NEW_TAG=${{ needs.draft.outputs.tag_name }}
           APP_VERSION=$(php ./builds/notifications --version)
+
+          echo "Application version is $APP_VERSION"
+          echo "New version is $NEW_TAG"
           
           if [[ $APP_VERSION == *"$NEW_TAG"* ]]; then
             ALLOW=0
