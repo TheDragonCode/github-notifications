@@ -15,6 +15,9 @@ jobs:
     needs: draft
     
     runs-on: ubuntu-latest
+    
+    outputs: 
+      allow: ${{ steps.result.outputs.allow }}
 
     name: Comparison
     steps:
@@ -28,7 +31,8 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
           coverage: xdebug
 
-      - run: |
+      - id: result
+        run: |
           ALLOW=1
           NEW_TAG=${{ needs.draft.outputs.tag_name }}
           APP_VERSION=$(php ./builds/notifications --version)
