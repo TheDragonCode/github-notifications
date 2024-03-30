@@ -2,6 +2,12 @@
 
 ![The Dragon Code: GitHub Notifications](https://preview.dragon-code.pro/the-dragon-code/github-notifications.svg?brand=laravel)
 
+[![Stable Version][badge_stable]][link_packagist]
+[![Unstable Version][badge_unstable]][link_packagist]
+[![Total Downloads][badge_downloads]][link_packagist]
+[![Github Workflow Status][badge_build]][link_build]
+[![License][badge_license]][link_license]
+
 > GitHub Notifications was created by, and is maintained by `The Dragon Code`,
 > and is a simple command line tool to mark all notifications about issues or rejected PRs as read on a given
 > organization.
@@ -61,7 +67,8 @@ You can also specify several names:
 notifications read laravel/framework laravel/jet
 ```
 
-When determining the name, the [`str_starts_with`](https://www.php.net/manual/en/function.str-starts-with) function is used.
+When determining the name, the [`str_starts_with`](https://www.php.net/manual/en/function.str-starts-with) function is
+used.
 
 ### Options
 
@@ -117,3 +124,19 @@ With this set of options, notifications that have:
 ## License
 
 This package is licensed under the [MIT License](LICENSE).
+
+[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/github-notifications/tests.yml?style=flat-square
+
+[badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/github-notifications.svg?style=flat-square
+
+[badge_license]:        https://img.shields.io/packagist/l/dragon-code/github-notifications.svg?style=flat-square
+
+[badge_stable]:         https://img.shields.io/github/v/release/TheDragonCode/github-notifications?label=stable&style=flat-square
+
+[badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
+
+[link_build]:           https://github.com/TheDragonCode/github-notifications/actions
+
+[link_license]:         LICENSE
+
+[link_packagist]:       https://packagist.org/packages/dragon-code/github-notifications
