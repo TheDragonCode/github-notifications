@@ -68,6 +68,11 @@ jobs:
         steps:
             -   name: Checkout the code
                 uses: actions/checkout@v4
+                
+            -   name: Setup Git
+                run: |
+                    git config --local user.email "action@github.com"
+                    git config --local user.name "GitHub Action"
 
             -   name: Make a title
                 id: title
