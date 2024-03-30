@@ -31,7 +31,7 @@ jobs:
       - run: |
           ALLOW=1
           NEW_TAG=${{ needs.draft.outputs.tag_name }}
-          APP_VERSION=$(./builds/notifications --version)
+          APP_VERSION=$(php ./builds/notifications --version)
           
           if [[ $APP_VERSION == *"$NEW_TAG"* ]]; then
             ALLOW=0
