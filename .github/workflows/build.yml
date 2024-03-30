@@ -11,6 +11,9 @@ on:
             tag:
                 type: string
                 required: true
+            token:
+                type: string
+                required: true
 
 permissions:
     contents: write
@@ -18,6 +21,7 @@ permissions:
 
 env:
     TAG_NAME: ${{ inputs.tag || github.event.inputs.tag }}
+    TOKEN: ${{ inputs.tag || $GITHUB_TOKEN || $COMPOSER_TOKEN }}
 
 jobs:
     build:
@@ -96,4 +100,4 @@ jobs:
             -  name: Push Changes
                uses: ad-m/github-push-action@master
                with:
-                   github_token: ${{ secrets.COMPOSER_TOKEN }}
+                   github_token: $TOKEN

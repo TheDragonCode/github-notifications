@@ -19,3 +19,4 @@ jobs:
     uses: TheDragonCode/github-notifications/.github/workflows/build.yml@main
     with:
       tag: ${{ needs.draft.outputs.tag_name }}
+      token: ${{ secrets.COMPOSER_TOKEN }}
