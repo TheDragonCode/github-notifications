@@ -21,6 +21,8 @@ class GitHub
 
     protected bool $exceptPulls = false;
 
+    protected bool $exceptMentions = false;
+
     protected bool $withOpen = false;
 
     protected int $index = 0;
@@ -40,16 +42,23 @@ class GitHub
         return $this;
     }
 
-    public function exceptIssues(bool $exceptIssues): self
+    public function exceptIssues(bool $except): self
     {
-        $this->exceptIssues = $exceptIssues;
+        $this->exceptIssues = $except;
 
         return $this;
     }
 
-    public function exceptPulls(bool $exceptPulls): self
+    public function exceptPulls(bool $except): self
     {
-        $this->exceptPulls = $exceptPulls;
+        $this->exceptPulls = $except;
+
+        return $this;
+    }
+
+    public function exceptMentions(bool $except): self
+    {
+        $this->exceptMentions = $except;
 
         return $this;
     }
@@ -156,6 +165,10 @@ class GitHub
         }
 
         if ($this->exceptPulls && $notification->type === 'PullRequest') {
+            return true;
+        }
+
+        if ($this->exceptMentions && $notification->reason === 'mention') {
             return true;
         }
 

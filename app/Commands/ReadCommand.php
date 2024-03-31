@@ -17,6 +17,7 @@ class ReadCommand extends Command
         . ' {repository?* : Full or partial repository names}'
         . ' {--i|except-issues : Exclude issues from processing}'
         . ' {--p|except-pulls : Exclude Pull Requests from processing}'
+        . ' {--m|except-mentions : Exclude notifications with your mention from processing}'
         . ' {--o|with-open : Process including open Issues and Pull Requests}'
         . ' {--token= : Specifies the token to use}';
 
@@ -57,6 +58,7 @@ class ReadCommand extends Command
             ->repositories($repositories)
             ->exceptIssues($this->exceptIssues())
             ->exceptPulls($this->exceptPulls())
+            ->exceptMentions($this->exceptMentions())
             ->withOpen($this->withOpen())
             ->when(
                 $this->shouldBeAll($repositories),
@@ -70,6 +72,7 @@ class ReadCommand extends Command
         return empty($repositories)
             && ! $this->exceptIssues()
             && ! $this->exceptPulls()
+            && ! $this->exceptMentions()
             && $this->withOpen();
     }
 
@@ -101,6 +104,11 @@ class ReadCommand extends Command
     protected function exceptPulls(): bool
     {
         return $this->option('except-pulls');
+    }
+
+    protected function exceptMentions(): bool
+    {
+        return $this->option('except-mentions');
     }
 
     protected function withOpen(): bool
