@@ -85,11 +85,12 @@ By default, only those Issues and Pull Requests that have been closed or merged 
 But you can define the parameters yourself:
 
 ```Bash
--i, --except-issues  Exclude issues from processing
--p, --except-pulls   Exclude Pull Requests from processing
--o, --with-open       Process including open Issues and Pull Requests
--n, --no-interaction  Do not ask any interactive question
--q, --quiet           Do not output any message
+-i, --except-issues     Exclude issues from processing
+-p, --except-pulls      Exclude Pull Requests from processing
+-m, --except-mentions   Exclude notifications with your mention from processing
+-o, --with-open         Process including open Issues and Pull Requests
+-n, --no-interaction    Do not ask any interactive question
+-q, --quiet             Do not output any message
 ```
 
 For example:

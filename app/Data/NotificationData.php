@@ -12,6 +12,8 @@ class NotificationData extends Data
 
     public string $type;
 
+    public string $reason;
+
     public string $fullName;
 
     public string $organization;
@@ -25,7 +27,8 @@ class NotificationData extends Data
         $this->id      = (int) $this->get($data, 'id');
         $this->issueId = $this->issueId($data);
 
-        $this->type = $this->get($data, 'subject.type');
+        $this->type   = $this->get($data, 'subject.type');
+        $this->reason = $this->get($data, 'reason');
 
         $this->fullName     = $this->get($data, 'repository.full_name');
         $this->organization = $this->get($data, 'repository.owner.login');
