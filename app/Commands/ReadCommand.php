@@ -15,8 +15,8 @@ class ReadCommand extends Command
 {
     protected $signature = 'read'
         . ' {repository?* : Full or partial repository names}'
-        . ' {--i|without-issues : Exclude issues from processing}'
-        . ' {--s|without-pulls : Exclude Pull Requests from processing}'
+        . ' {--i|except-issues : Exclude issues from processing}'
+        . ' {--p|except-pulls : Exclude Pull Requests from processing}'
         . ' {--o|with-open : Process including open Issues and Pull Requests}'
         . ' {--token= : Specifies the token to use}';
 
@@ -55,8 +55,8 @@ class ReadCommand extends Command
     {
         $this->gitHub()
             ->repositories($repositories)
-            ->withoutIssues($this->withoutIssues())
-            ->withoutPulls($this->withoutPulls())
+            ->exceptIssues($this->exceptIssues())
+            ->exceptPulls($this->exceptPulls())
             ->withOpen($this->withOpen())
             ->when(
                 $this->shouldBeAll($repositories),
@@ -68,8 +68,8 @@ class ReadCommand extends Command
     protected function shouldBeAll(array $repositories): bool
     {
         return empty($repositories)
-            && ! $this->withoutIssues()
-            && ! $this->withoutPulls()
+            && ! $this->exceptIssues()
+            && ! $this->exceptPulls()
             && $this->withOpen();
     }
 
@@ -93,14 +93,14 @@ class ReadCommand extends Command
             ->all();
     }
 
-    protected function withoutIssues(): bool
+    protected function exceptIssues(): bool
     {
-        return $this->option('without-issues');
+        return $this->option('except-issues');
     }
 
-    protected function withoutPulls(): bool
+    protected function exceptPulls(): bool
     {
-        return $this->option('without-pulls');
+        return $this->option('except-pulls');
     }
 
     protected function withOpen(): bool
