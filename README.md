@@ -128,7 +128,7 @@ notifications read -n --except-mentions
 
 ![after](.github/images/after.png)
 
-### After With `--with-open` option
+### After with `--with-open` option
 
 Execute a console command with the following parameters:
 
