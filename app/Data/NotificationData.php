@@ -45,13 +45,19 @@ class NotificationData extends Data
 
     protected function issueId(array $data): int
     {
-        $values = $this->parseUrl($data);
+        if ($values = $this->parseUrl($data)) {
+            return (int) end($values);
+        }
 
-        return (int) end($values);
+        return (int) $this->get($data, 'id');
     }
 
-    protected function parseUrl(array $data): array
+    protected function parseUrl(array $data): ?array
     {
-        return explode('/', $this->get($data, 'subject.url'));
+        if ($url = $this->get($data, 'subject.url')) {
+            return explode('/', $url);
+        }
+
+        return null;
     }
 }
