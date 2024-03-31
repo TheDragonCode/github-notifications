@@ -116,6 +116,12 @@ With this set of options, notifications that have:
 
 ### Before
 
+Execute a console command with the following parameters:
+
+```Bash
+notifications read -n --except-mentions
+```
+
 ![before](.github/images/before.png)
 
 ### After
@@ -123,6 +129,12 @@ With this set of options, notifications that have:
 ![after](.github/images/after.png)
 
 ### After With `--with-open` option
+
+Execute a console command with the following parameters:
+
+```Bash
+notifications read -n --except-mentions --with-open
+```
 
 ![after](.github/images/after-with-open.png)
 
