@@ -17,9 +17,9 @@ class GitHub
 {
     protected array $repositories = [];
 
-    protected bool $withoutIssues = false;
+    protected bool $exceptIssues = false;
 
-    protected bool $withoutPulls = false;
+    protected bool $exceptPulls = false;
 
     protected bool $withOpen = false;
 
@@ -40,16 +40,16 @@ class GitHub
         return $this;
     }
 
-    public function withoutIssues(bool $withoutIssues): self
+    public function exceptIssues(bool $exceptIssues): self
     {
-        $this->withoutIssues = $withoutIssues;
+        $this->exceptIssues = $exceptIssues;
 
         return $this;
     }
 
-    public function withoutPulls(bool $withoutPulls): self
+    public function exceptPulls(bool $exceptPulls): self
     {
-        $this->withoutPulls = $withoutPulls;
+        $this->exceptPulls = $exceptPulls;
 
         return $this;
     }
@@ -151,11 +151,11 @@ class GitHub
             return true;
         }
 
-        if ($this->withoutIssues && $notification->type === 'Issue') {
+        if ($this->exceptIssues && $notification->type === 'Issue') {
             return true;
         }
 
-        if ($this->withoutPulls && $notification->type === 'PullRequest') {
+        if ($this->exceptPulls && $notification->type === 'PullRequest') {
             return true;
         }
 
