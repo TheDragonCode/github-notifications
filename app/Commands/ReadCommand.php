@@ -6,6 +6,7 @@ use DragonCode\GithubNotifications\Factories\ClientFactory;
 use DragonCode\GithubNotifications\Services\GitHub;
 use DragonCode\GithubNotifications\Services\Output;
 use Github\ResultPager;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Exception\InvalidOptionException;
 
@@ -36,17 +37,17 @@ class ReadCommand extends Command
         }
     }
 
-    protected function welcome(array $repositories, ?array $exceptRepositories): void
+    protected function welcome(array $includeRepositories, ?array $exceptRepositories): void
     {
-        if ($repositories) {
-            $this->bulletList('You specified the following repository name masks:', $repositories);
+        if ($includeRepositories) {
+            $this->bulletList('You specified the following repository name masks:', $includeRepositories);
         }
 
         if ($exceptRepositories) {
             $this->bulletList('You specified the following masks to exclude repositories:', $exceptRepositories);
         }
 
-        if (! $repositories && ! $exceptRepositories) {
+        if (! $includeRepositories && ! $exceptRepositories) {
             Output::info('Mark as read all notifications except open ones');
         }
     }
@@ -95,12 +96,12 @@ class ReadCommand extends Command
 
     protected function repositories(): array
     {
-        return $this->argument('repository');
+        return $this->resolvePattern($this->argument('repository'));
     }
 
-    protected function exceptRepositories(): ?array
+    protected function exceptRepositories(): array
     {
-        return array_filter($this->option('except-repository')) ?: null;
+        return $this->resolvePattern($this->option('except-repository'));
     }
 
     protected function exceptIssues(): bool
@@ -127,14 +128,15 @@ class ReadCommand extends Command
     {
         Output::info($title);
 
-        $this->components->bulletList($this->sort($values));
+        $this->components->bulletList($values);
     }
 
-    protected function sort(array $values): array
+    protected function resolvePattern(?array $values): array
     {
         return collect($values)
             ->filter()
             ->unique()
+            ->map(fn (string $value) => Str::of($value)->trim()->start('*')->finish('*')->toString())
             ->sort()
             ->all();
     }

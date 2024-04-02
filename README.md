@@ -59,15 +59,21 @@ Or, if you are specifying a token:
 notifications read laravel --token {...}
 ```
 
-In addition to the organization, you can also specify the full or partial name of the repository. For example:
+In addition, you can use any part of the organization name and/or repository name to check against the template:
 
 ```Bash
 notifications read laravel/framework
 # or
-notifications read laravel/fra
+notifications read lara*/fra
 # or
-notifications read la
+notifications read framework
+# or
+notifications read work
+# or
+notifications read fra*rk
 ```
+
+Pattern matching is implemented using the [`Str::is`](https://laravel.com/docs/strings#method-str-is) method.
 
 You can also specify several names:
 
