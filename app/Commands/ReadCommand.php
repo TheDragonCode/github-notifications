@@ -14,20 +14,20 @@ use function Laravel\Prompts\confirm;
 class ReadCommand extends Command
 {
     protected $signature = 'read'
-    . ' {repository?* : Full or partial repository names}'
-    . ' {--r|except-repository=* : Exclude repositories from processing}'
-    . ' {--i|except-issues : Exclude issues from processing}'
-    . ' {--p|except-pulls : Exclude Pull Requests from processing}'
-    . ' {--m|except-mentions : Exclude notifications with your mention from processing}'
-    . ' {--o|with-open : Process including open Issues and Pull Requests}'
-    . ' {--token= : Specifies the token to use}';
+        . ' {repository?* : Full or partial repository names}'
+        . ' {--r|except-repository=* : Exclude repositories from processing}'
+        . ' {--i|except-issues : Exclude issues from processing}'
+        . ' {--p|except-pulls : Exclude Pull Requests from processing}'
+        . ' {--m|except-mentions : Exclude notifications with your mention from processing}'
+        . ' {--o|with-open : Process including open Issues and Pull Requests}'
+        . ' {--token= : Specifies the token to use}';
 
     protected $description = 'Marks as read all notifications based on specified conditions';
 
     public function handle(): void
     {
         $include = $this->repositories();
-        $except = $this->exceptRepositories();
+        $except  = $this->exceptRepositories();
 
         $this->welcome($include, $except);
 
@@ -46,7 +46,7 @@ class ReadCommand extends Command
             $this->bulletList('You specified the following masks to exclude repositories:', $exceptRepositories);
         }
 
-        if (!$repositories && !$exceptRepositories) {
+        if (! $repositories && ! $exceptRepositories) {
             Output::info('Mark as read all notifications except open ones');
         }
     }
@@ -75,10 +75,10 @@ class ReadCommand extends Command
     protected function shouldBeAll(array $repositories): bool
     {
         return empty($repositories)
-            && !$this->exceptRepositories()
-            && !$this->exceptIssues()
-            && !$this->exceptPulls()
-            && !$this->exceptMentions()
+            && ! $this->exceptRepositories()
+            && ! $this->exceptIssues()
+            && ! $this->exceptPulls()
+            && ! $this->exceptMentions()
             && $this->withOpen();
     }
 
@@ -87,8 +87,8 @@ class ReadCommand extends Command
         $client = ClientFactory::make($this->token());
 
         return app(GitHub::class, [
-            'output' => $this->components,
-            'github' => $client,
+            'output'    => $this->components,
+            'github'    => $client,
             'paginator' => new ResultPager($client),
         ]);
     }
