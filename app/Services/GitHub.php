@@ -17,7 +17,7 @@ class GitHub
 {
     protected array $repositories = [];
 
-    protected ?array $exceptRepositories = null;
+    protected array $exceptRepositories = [];
 
     protected bool $exceptIssues = false;
 
@@ -44,7 +44,7 @@ class GitHub
         return $this;
     }
 
-    public function exceptRepositories(?array $except): self
+    public function exceptRepositories(array $except): self
     {
         $this->exceptRepositories = $except;
 
@@ -165,11 +165,11 @@ class GitHub
 
     protected function shouldSkip(NotificationData $notification, ItemData $item): bool
     {
-        if ($this->repositories && ! Str::startsWith($notification->fullName, $this->repositories)) {
+        if ($this->repositories && ! Str::is($this->repositories, $notification->fullName)) {
             return true;
         }
 
-        if ($this->exceptRepositories && Str::startsWith($notification->fullName, $this->exceptRepositories)) {
+        if ($this->exceptRepositories && Str::is($this->exceptRepositories, $notification->fullName)) {
             return true;
         }
 
