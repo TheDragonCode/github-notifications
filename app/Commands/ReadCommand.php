@@ -15,6 +15,7 @@ class ReadCommand extends Command
 {
     protected $signature = 'read'
         . ' {repository?* : Full or partial repository names}'
+        . ' {--r|except-repository=* : Exclude repositories from processing}'
         . ' {--i|except-issues : Exclude issues from processing}'
         . ' {--p|except-pulls : Exclude Pull Requests from processing}'
         . ' {--m|except-mentions : Exclude notifications with your mention from processing}'
@@ -25,26 +26,29 @@ class ReadCommand extends Command
 
     public function handle(): void
     {
-        $repositories = $this->repositories();
+        $include = $this->repositories();
+        $except  = $this->exceptRepositories();
 
-        $this->welcome($repositories);
+        $this->welcome($include, $except);
 
         if ($this->hasContinue()) {
-            $this->read($repositories);
+            $this->read($include);
         }
     }
 
-    protected function welcome(array $repositories): void
+    protected function welcome(array $repositories, ?array $exceptRepositories): void
     {
         if ($repositories) {
-            Output::info('You specified the following repository name masks:');
-
-            $this->components->bulletList($repositories);
-
-            return;
+            $this->bulletList('You specified the following repository name masks:', $repositories);
         }
 
-        Output::info('Mark as read all notifications except open ones');
+        if ($exceptRepositories) {
+            $this->bulletList('You specified the following masks to exclude repositories:', $exceptRepositories);
+        }
+
+        if (! $repositories && ! $exceptRepositories) {
+            Output::info('Mark as read all notifications except open ones');
+        }
     }
 
     protected function hasContinue(): bool
@@ -56,6 +60,7 @@ class ReadCommand extends Command
     {
         $this->gitHub()
             ->repositories($repositories)
+            ->exceptRepositories($this->exceptRepositories())
             ->exceptIssues($this->exceptIssues())
             ->exceptPulls($this->exceptPulls())
             ->exceptMentions($this->exceptMentions())
@@ -70,6 +75,7 @@ class ReadCommand extends Command
     protected function shouldBeAll(array $repositories): bool
     {
         return empty($repositories)
+            && ! $this->exceptRepositories()
             && ! $this->exceptIssues()
             && ! $this->exceptPulls()
             && ! $this->exceptMentions()
@@ -89,11 +95,12 @@ class ReadCommand extends Command
 
     protected function repositories(): array
     {
-        return collect($this->argument('repository'))
-            ->filter()
-            ->unique()
-            ->sort()
-            ->all();
+        return $this->argument('repository');
+    }
+
+    protected function exceptRepositories(): ?array
+    {
+        return array_filter($this->option('except-repository')) ?: null;
     }
 
     protected function exceptIssues(): bool
@@ -114,6 +121,22 @@ class ReadCommand extends Command
     protected function withOpen(): bool
     {
         return $this->option('with-open');
+    }
+
+    protected function bulletList(string $title, array $values): void
+    {
+        Output::info($title);
+
+        $this->components->bulletList($this->sort($values));
+    }
+
+    protected function sort(array $values): array
+    {
+        return collect($values)
+            ->filter()
+            ->unique()
+            ->sort()
+            ->all();
     }
 
     protected function token(): string

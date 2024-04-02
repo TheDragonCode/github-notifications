@@ -17,6 +17,8 @@ class GitHub
 {
     protected array $repositories = [];
 
+    protected ?array $exceptRepositories = null;
+
     protected bool $exceptIssues = false;
 
     protected bool $exceptPulls = false;
@@ -38,6 +40,13 @@ class GitHub
     public function repositories(array $repositories): self
     {
         $this->repositories = $repositories;
+
+        return $this;
+    }
+
+    public function exceptRepositories(?array $except): self
+    {
+        $this->exceptRepositories = $except;
 
         return $this;
     }
@@ -157,6 +166,10 @@ class GitHub
     protected function shouldSkip(NotificationData $notification, ItemData $item): bool
     {
         if ($this->repositories && ! Str::startsWith($notification->fullName, $this->repositories)) {
+            return true;
+        }
+
+        if ($this->exceptRepositories && Str::startsWith($notification->fullName, $this->exceptRepositories)) {
             return true;
         }
 
