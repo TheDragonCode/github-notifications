@@ -181,7 +181,7 @@ class GitHub
             return true;
         }
 
-        if ($this->exceptMentions && $notification->reason === 'mention') {
+        if ($this->exceptMentions && $notification->reason === 'mention' && $this->isNotDependabot($item)) {
             return true;
         }
 
@@ -215,5 +215,10 @@ class GitHub
         $pluralized = $this->marked === 1 ? 'notification' : 'notifications';
 
         Output::info("unread $pluralized detected", $count);
+    }
+
+    protected function isNotDependabot(ItemData $item): bool
+    {
+        return $item->ownerId !== config('bots.dependabot');
     }
 }
