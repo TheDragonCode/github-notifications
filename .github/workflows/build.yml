@@ -56,7 +56,7 @@ jobs:
                 with:
                     name: notifications
                     path: builds/notifications
-                    retention-days: 14
+                    retention-days: 1
     
     pull_request:
         runs-on: ubuntu-latest
