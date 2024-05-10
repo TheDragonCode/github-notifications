@@ -36,10 +36,10 @@
     "require-dev": {
         "guzzlehttp/guzzle": "^7.8.1",
         "knplabs/github-api": "^3.14.1",
-        "laravel-zero/framework": "^10.3",
+        "laravel-zero/framework": "^11.0.1",
         "mockery/mockery": "^1.6.11",
-        "nunomaduro/termwind": "^1.15.1",
-        "pestphp/pest": "^2.34.6"
+        "nunomaduro/termwind": "^2.0.1",
+        "pestphp/pest": "^2.34.7"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
