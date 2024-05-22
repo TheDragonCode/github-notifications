@@ -5,6 +5,7 @@ namespace DragonCode\GithubNotifications\Commands;
 use DragonCode\GithubNotifications\Factories\ClientFactory;
 use DragonCode\GithubNotifications\Services\GitHub;
 use DragonCode\GithubNotifications\Services\Output;
+use DragonCode\GithubNotifications\Services\Token;
 use Github\ResultPager;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -152,6 +153,6 @@ class ReadCommand extends Command
 
     protected function detectToken(): ?string
     {
-        return $this->option('token') ?: ($_SERVER['GITHUB_TOKEN'] ?? null);
+        return $this->option('token') ?: Token::detect();
     }
 }
