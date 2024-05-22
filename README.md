@@ -36,10 +36,20 @@ You'll also need to create yourself a
 [personal access token](https://github.com/settings/tokens/new?description=Notifications%20Reader)
 for GitHub's API with access to the `notifications` scope.
 
-## Usage
+By default, we check several places for the presence of a token in the following order:
 
-By default, we'll try and read your personal access token for GitHub from the `GITHUB_TOKEN` environment variable,
-however you can also specify a token with the `--token` command-line flag.
+1. The `token` parameter passed when calling the console command
+2. The `GITHUB_TOKEN` environment variable
+3. `~/.composer/auth.json` file
+4. `~/.config/.composer/auth.json` file
+5. `~/.config/composer/auth.json` file
+6. `~/AppData/Roaming/Composer/auth.json` file
+7. `~/composer/auth.json` file
+8. `%USERPROFILE%/AppData/Roaming/Composer/auth.json` file
+
+If the token is not found, you will receive a message about this.
+
+## Usage
 
 To read all issue notifications:
 
@@ -131,7 +141,6 @@ With this set of options, notifications that have:
 - Pull Requests only, both open and closed
 - will not be asked to continue in the console
 - repositories `laravel/framework` and `laravel/breeze` will not be processed
-
 
 ## Result
 
