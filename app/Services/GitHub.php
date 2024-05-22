@@ -11,6 +11,7 @@ use Github\Api\Notification;
 use Github\Client;
 use Github\ResultPager;
 use Illuminate\Console\View\Components\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class GitHub
@@ -36,6 +37,11 @@ class GitHub
         protected Client $github,
         protected ResultPager $paginator,
     ) {}
+
+    public function currentUser(): ?string
+    {
+        return Arr::get($this->github->me()->show(), 'name');
+    }
 
     public function repositories(array $repositories): self
     {
