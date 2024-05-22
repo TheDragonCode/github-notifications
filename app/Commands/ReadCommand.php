@@ -40,6 +40,10 @@ class ReadCommand extends Command
 
     protected function welcome(array $includeRepositories, ?array $exceptRepositories): void
     {
+        if ($user = $this->gitHub()->currentUser()) {
+            Output::success($user, 'WELCOME');
+        }
+
         if ($includeRepositories) {
             $this->bulletList('You specified the following repository name masks:', $includeRepositories);
         }
