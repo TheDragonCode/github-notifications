@@ -187,7 +187,7 @@ class GitHub
             return true;
         }
 
-        if ($this->exceptMentions && $notification->reason === 'mention' && $this->isNotDependabot($item)) {
+        if ($this->exceptMentions && $notification->reason === 'mention' && $this->isNotServiceAccount($item)) {
             return true;
         }
 
@@ -223,8 +223,8 @@ class GitHub
         Output::info("unread $pluralized detected", $count);
     }
 
-    protected function isNotDependabot(ItemData $item): bool
+    protected function isNotServiceAccount(ItemData $item): bool
     {
-        return $item->ownerId !== config('bots.dependabot');
+        return ! in_array($item->ownerId, config('bots.accounts'), true);
     }
 }
