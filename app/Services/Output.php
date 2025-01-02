@@ -6,7 +6,7 @@ namespace DragonCode\GithubNotifications\Services;
 
 use Illuminate\Support\Str;
 
-use function Termwind\{render};
+use function Termwind\render;
 
 class Output
 {
