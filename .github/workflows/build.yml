@@ -81,7 +81,7 @@ jobs:
             -   name: Remove old file
                 run: rm -f builds/notifications
 
-            -   uses: actions/download-artifact@v4
+            -   uses: actions/download-artifact@v5
                 with:
                     name: notifications
                     path: builds
