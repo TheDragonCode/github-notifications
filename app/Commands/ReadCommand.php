@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DragonCode\GithubNotifications\Commands;
 
 use DragonCode\GithubNotifications\Factories\ClientFactory;
