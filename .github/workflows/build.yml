@@ -30,7 +30,7 @@ jobs:
                 run: echo "New versions is $TAG_NAME"
 
             -   name: Checkout the code
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -68,7 +68,7 @@ jobs:
 
         steps:
             -   name: Checkout the code
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
 
             -   name: Make a title
                 id: title
