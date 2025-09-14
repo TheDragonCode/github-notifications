@@ -80,8 +80,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": [
-            "@php vendor/bin/pest --compact"
-        ]
+        "read": "@php ./notifications read -nm --ansi",
+        "test": "@php ./vendor/bin/pest --compact --colors=always"
     }
 }
