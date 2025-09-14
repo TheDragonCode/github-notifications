@@ -29,7 +29,7 @@ class ClientFactory
         return new Client($builder);
     }
 
-    protected static function builder($psr = new HttpFactory()): Builder
+    protected static function builder($psr = new HttpFactory): Builder
     {
         return new Builder(static::httpClient(), $psr, $psr);
     }

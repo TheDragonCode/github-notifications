@@ -116,7 +116,7 @@ class GitHub
     {
         $this->github->notification()->markThreadRead($data->id);
 
-        ++$this->marked;
+        $this->marked++;
     }
 
     protected function process(array $items): void
