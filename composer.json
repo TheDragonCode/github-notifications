@@ -44,12 +44,12 @@
         "php": "^8.2"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^7.8.1",
-        "knplabs/github-api": "^3.14.1",
-        "laravel-zero/framework": "^12.0",
+        "guzzlehttp/guzzle": "^7.10.0",
+        "knplabs/github-api": "^3.16.0",
+        "laravel-zero/framework": "^12.0.1",
         "mockery/mockery": "^1.6.12",
-        "nunomaduro/termwind": "^2.0.1",
-        "pestphp/pest": "^3.0"
+        "nunomaduro/termwind": "^2.3.1",
+        "pestphp/pest": "^3.8.4"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
