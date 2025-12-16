@@ -25,11 +25,11 @@ jobs:
                     extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
                     coverage: xdebug
 
-            -   name: Install dependencies for ${{ matrix.php }}
+            -   name: Install dependencies for old PHP versions
                 if: matrix.php != '8.5'
                 run: composer install --prefer-dist --no-progress --no-interaction --no-suggest
 
-            -   name: Install dependencies for ${{ matrix.php }}
+            -   name: Install dependencies for PHP 8.5
                 if: matrix.php == '8.5'
                 run: composer update --prefer-dist --no-progress --no-interaction
 
