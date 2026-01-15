@@ -1,6 +1,9 @@
 # GitHub Notifications
 
-![The Dragon Code: GitHub Notifications](https://banners.beyondco.de/GitHub%20Notifications.png?theme=light&packageManager=composer+require&packageName=dragon-code%2Fgithub-notifications&pattern=topography&style=style_2&description=by+The+Dragon+Code&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Github%20Notifications.png?theme=dark&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg&packageManager=composer+require&packageName=dragon-code%2Fgithub-notifications&description=Reduce+your+notification+burden+on+GitHub%21&md=1&showWatermark=1">
+    <img src="https://banners.beyondco.de/Github%20Notifications.png?theme=light&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg&packageManager=composer+require&packageName=dragon-code%2Fgithub-notifications&description=Reduce+your+notification+burden+on+GitHub%21&md=1&showWatermark=1" alt="Github Notifications">
+</picture>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
