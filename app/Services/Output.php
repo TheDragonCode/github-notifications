@@ -46,8 +46,8 @@ class Output
     protected static function padding(int|string $value): int
     {
         return match (Str::length((string) $value)) {
-            1, 2 => 3,
-            3, 4 => 2,
+            1, 2    => 3,
+            3, 4    => 2,
             default => 1
         };
     }
